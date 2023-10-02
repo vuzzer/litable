@@ -5,7 +5,7 @@ import URL from "../core/config"
 export const postRent = (rental) => {
     axios({
         method: "post",
-        url: URL,
+        url: URL + "/rental" + "/post",
         data: rental
     }).then(()=> {
         console.log("Rental posted !!!")

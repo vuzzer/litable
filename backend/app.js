@@ -1,24 +1,23 @@
 "use strict";
 const express = require("express")
 const app = express()
-
-const cors = require("cors");
 const bodyParser = require("body-parser");
+
+//Routing
+const rentalRoute = require("./routes/rental");
 
 
 //Middlewares
-app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
-app.use(cors({
-    option: "*"
-}))
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, PUT, DELETE, PATCH')
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
+    next();
+})
 
-
-app.post("/addRental", (req, res, next) => {
-    const data = req.body;
-    console.log(data);
-    res.send(JSON.stringify({register: "register successful"}))
-});
+//Middleware routing
+app.use("/rental", rentalRoute);
 
 
 app.listen(3000, () => {
