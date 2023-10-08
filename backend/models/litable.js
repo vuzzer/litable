@@ -4,7 +4,7 @@ const {Schema} = mongoose;
 
 const litableSchema = new Schema({
     city: String,
-    address: String,
+    street: String,
     rent: Number,
     imageUrl: Array
 })  

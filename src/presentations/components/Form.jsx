@@ -1,8 +1,10 @@
 import { Component } from "react";
 import styled from "styled-components";
-import './css/Header.css';
+import './css/Form.css';
 import image from '../../assets/file.svg'
 import {postRent} from "../../data/postRental"
+import {  Link } from "react-router-dom";
+
 
 const FormStyled = styled.form `
     display: flex;
@@ -22,26 +24,40 @@ const DivStyled = styled.div `
 
 
 class Form extends Component {
-    state = {
-        owner: '',
-        location: '',
-        file: ''
+
+    constructor(){
+        super();
+        this.state = {
+            submit: false,
+            owner: '',
+            location: '',
+            file: ''
+        }
     }
+
     onSubmit = (e) => {
         e.preventDefault();
-        postRent(this.state);
+        let {history} = this.props;
 
+        postRent(this.state).then((result)=>{
+        console.log(result);
         //Delete from form
         this.setState({
+            submit: true,
             owner: '',
             location: '',
             file: ''
         })
+        }).catch((e)=>{
+            console.log(e);
+        })
+
+
     }
 
     render(){
         return(
-            <>
+        this.state.submit ? (<Redirect to="/home" />) : (  <>
             <FormStyled onSubmit={(e) => this.onSubmit(e)}>
                 <DivStyled>
                     <label>Propriétaire</label>
@@ -60,7 +76,7 @@ class Form extends Component {
                 </label>
                 <button type="submit">Valider</button>
             </FormStyled>
-            </>
+            </>)
         )
     }
 }

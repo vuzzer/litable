@@ -1,12 +1,14 @@
+import { Link } from "react-router-dom"
 import styled from "styled-components"
+import './css/Header.css'
 
 const Nav = styled.nav `
-    width: 100%;
     height: 60px;
+    padding: 0 3rem;
     background-color: #713ABE;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
 `
 
 const Logo = styled.h1 `
@@ -18,7 +20,11 @@ const Header = () => {
     return ( 
         <>
             <Nav>
-                <Logo>Litable</Logo>
+                <Link to="/"><Logo>Litable</Logo></Link>
+                <div className="link-group">
+                    <Link to="/login" className="link">Se Connecter</Link>
+                    <Link to="/register" className="link">S'inscrire</Link>
+                </div>
             </Nav>
         </>
     )

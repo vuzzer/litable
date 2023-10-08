@@ -1,8 +1,12 @@
-.file {
-    padding: 0;
-    display: none;
+.link-group{
+    margin: auto 0;
 }
 
-input[type="text"]{
-    padding: 8px;
+.link {
+    color: white;
+    margin: 0 0.5rem;
+}
+
+.link:hover{
+    color: #001524;
 }

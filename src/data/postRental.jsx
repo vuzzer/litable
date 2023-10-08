@@ -3,13 +3,9 @@ import URL from "../core/config"
 
 
 export const postRent = (rental) => {
-    axios({
+    return axios({
         method: "post",
-        url: URL + "/rental/post",
+        url: URL + "/litable/post",
         data: rental
-    }).then(()=> {
-        console.log("Rental posted !!!")
-    }).catch(e => {
-        console.log("An error is occured !!")
     })
 }

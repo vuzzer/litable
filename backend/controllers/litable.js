@@ -1,25 +1,33 @@
 const Litable = require("../models/litable")
 
 exports.addLitable = (req, res, next) => {
-    const {city, address, rent} = req.body;
+    const {city, street, rent} = req.body;
     const litable = new Litable({
         city: city,
-        address: address,
+        street: street,
         rent: parseFloat(rent)
     });
     litable.save().then((result)=>{
-        console.log(result)
-        res.status(201).json({register: "register successful"})
+        return res.status(201).json({message: "litable created successful", litable: litable.get()})
     }).catch((e)=>{
-        throw new Error("Error occured during operation")
+        const error = new Error("Error occured during operation")
+        next(error)
     })
   
 }
 
 exports.displayLitable = (req, res, next) => {
-    res.json({
-       "data": "House available !"
-    });
+    Litable.find().then(result => {
+        console.log(result)
+        return res.json({
+            litable: result
+         });
+    }).catch(e=>{
+        console.log(e)
+        const error = new Error("Error occured during operation")
+        next(error) 
+    })
+ 
 }
 
 
