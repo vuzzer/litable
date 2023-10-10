@@ -24,6 +24,7 @@ const Header = () => {
                 <div className="link-group">
                     <Link to="/login" className="link">Se Connecter</Link>
                     <Link to="/register" className="link">S'inscrire</Link>
+                    <Link to="/stock" className="link">Stocks</Link>
                 </div>
             </Nav>
         </>

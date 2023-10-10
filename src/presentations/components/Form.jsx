@@ -3,7 +3,7 @@ import styled from "styled-components";
 import './css/Form.css';
 import image from '../../assets/file.svg'
 import {postRent} from "../../data/postRental"
-import {  Link } from "react-router-dom";
+import {Navigate} from "react-router-dom";
 
 
 const FormStyled = styled.form `
@@ -28,50 +28,55 @@ class Form extends Component {
     constructor(){
         super();
         this.state = {
-            submit: false,
-            owner: '',
-            location: '',
+            city: '',
+            street: '',
+            rent: '',
             file: ''
         }
     }
 
+
+
     onSubmit = (e) => {
         e.preventDefault();
-        let {history} = this.props;
 
-        postRent(this.state).then((result)=>{
+/*         postRent(this.state).then((result)=>{
         console.log(result);
         //Delete from form
         this.setState({
-            submit: true,
-            owner: '',
-            location: '',
+            city: '',
+            street: '',
+            rent: '',
             file: ''
         })
         }).catch((e)=>{
             console.log(e);
-        })
-
+        }) */
 
     }
 
     render(){
         return(
-        this.state.submit ? (<Redirect to="/home" />) : (  <>
+        this.state.submit ? (<Navigate to="/" />) : (  <>
             <FormStyled onSubmit={(e) => this.onSubmit(e)}>
                 <DivStyled>
-                    <label>Propriétaire</label>
-                    <input value={this.state.owner} type="text" onChange={(e) => this.setState({owner: e.target.value })} />
+                    <label>Ville</label>
+                    <input value={this.state.city} type="text" onChange={(e) => this.setState({city: e.target.value })} />
                 </DivStyled>
                 <DivStyled>
-                    <label>Localisation</label>
-                    <input type="text" value={this.state.location} onChange={(e) => this.setState({location: e.target.value})} />
+                    <label>Adresse</label>
+                    <input type="text" value={this.state.street} onChange={(e) => this.setState({street: e.target.value})} />
+                </DivStyled>
+
+                <DivStyled>
+                    <label>Loyer</label>
+                    <input type="number" value={this.state.rent} onChange={(e) => this.setState({rent: e.target.value})} />
                 </DivStyled>
 
                 <label htmlFor="file">
                     <img src={image} alt="" style={{width: "30px"}} /><br/>
                     {/*  If file exist, its name is displayed or asked to load file */}
-                    {this.state.file !== '' ? this.state.file.name  : "Sélectionner une Image"}
+                    {this.state.file !== '' ? this.state.file.name  : "Sélectionner une Image de la maison/appart."}
                     <input type="file" name="" id="file" accept="image/png, image/jpeg" onChange={(e) => this.setState({file:e.target.files[0] })   } className="file"/>
                 </label>
                 <button type="submit">Valider</button>

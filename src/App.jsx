@@ -12,7 +12,7 @@ function App() {
       <Header/>
         <Routes>
           <Route exact path="/" element={ <ProductPage/>} />
-          <Route exact path="/login" element={<Form/>} />
+          <Route exact path="/stock" element={<Form/>} />
         </Routes>
     </BrowserRouter>
   )
