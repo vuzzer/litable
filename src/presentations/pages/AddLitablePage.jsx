@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Form from "../components/Form"
 
-export default class AddRentalPage extends Component {
+export default class AddLitablePage extends Component {
   render() {
     return (
         <>
@@ -10,3 +10,4 @@ export default class AddRentalPage extends Component {
     )
   }
 }
+

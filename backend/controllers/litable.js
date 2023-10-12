@@ -17,11 +17,9 @@ exports.addLitable = (req, res, next) => {
 }
 
 exports.displayLitable = (req, res, next) => {
-    Litable.find().then(result => {
-        console.log(result)
-        return res.json({
-            litable: result
-         });
+    Litable.find().then(data => {
+        //console.log(data)
+        return res.json(data);
     }).catch(e=>{
         console.log(e)
         const error = new Error("Error occured during operation")

@@ -2,7 +2,8 @@ import './App.css'
 import Form from './presentations/components/Form';
 import Header from './presentations/components/Header';
 import {Routes, Route,  BrowserRouter, Link} from 'react-router-dom';
-import ProductPage from './presentations/pages/productPage';
+import LitablePage from './presentations/pages/LitablePage';
+import AddLitablePage from './presentations/pages/AddLitablePage';
 
 
 
@@ -11,8 +12,8 @@ function App() {
     <BrowserRouter>
       <Header/>
         <Routes>
-          <Route exact path="/" element={ <ProductPage/>} />
-          <Route exact path="/stock" element={<Form/>} />
+          <Route exact path="/" element={ <LitablePage/>} />
+          <Route exact path="/stock" element={<AddLitablePage/>} />
         </Routes>
     </BrowserRouter>
   )

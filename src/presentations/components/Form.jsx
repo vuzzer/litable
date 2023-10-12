@@ -2,7 +2,7 @@ import { Component } from "react";
 import styled from "styled-components";
 import './css/Form.css';
 import image from '../../assets/file.svg'
-import {postRent} from "../../data/postRental"
+import {postRent} from "../../data/litable"
 import {Navigate} from "react-router-dom";
 
 
@@ -35,12 +35,10 @@ class Form extends Component {
         }
     }
 
-
-
     onSubmit = (e) => {
         e.preventDefault();
 
-/*         postRent(this.state).then((result)=>{
+        postRent(this.state).then((result)=>{
         console.log(result);
         //Delete from form
         this.setState({
@@ -51,7 +49,7 @@ class Form extends Component {
         })
         }).catch((e)=>{
             console.log(e);
-        }) */
+        }) 
 
     }
 

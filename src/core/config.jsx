@@ -1,1 +1,1 @@
-export default URL = "http://127.0.0.1:3000"
+export default URL = "http://localhost:3000"
