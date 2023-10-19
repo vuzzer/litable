@@ -37,7 +37,7 @@ app.use((req, res, next) => {
 
 //Handle Error thrown
 app.use((error, req, res, next) => {
-  res.json({
+  res.status(422).json({
     Ressource: "Not found",
   });
 });

@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import Form from "../components/Form"
+import FormComponent from "../components/FormComponent"
 
 export default class AddLitablePage extends Component {
   render() {
     return (
         <>
-            <Form />
+            <FormComponent />
         </>
     )
   }

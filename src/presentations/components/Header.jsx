@@ -16,7 +16,7 @@ font-size: 3rem;
 color: white;
 `
 
-const Header = () => {
+const HeaderComponent = () => {
     return ( 
         <>
             <Nav>
@@ -31,4 +31,4 @@ const Header = () => {
     )
 }
 
-export default Header;
+export default HeaderComponent;
