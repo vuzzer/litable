@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom"
 import styled from "styled-components"
-import './css/Header.css'
+import styles from './css/Header.module.css'
 
 const Nav = styled.nav `
+    position: fixed;
+    top: 0;
     height: 60px;
-    padding: 0 3rem;
+    width: 100vw;
+    padding: 0;
     background-color: #713ABE;
     display: flex;
     flex-direction: row;
@@ -14,6 +17,7 @@ const Nav = styled.nav `
 const Logo = styled.h1 `
 font-size: 3rem;
 color: white;
+margin-left: 20px;
 `
 
 const HeaderComponent = () => {
@@ -21,10 +25,10 @@ const HeaderComponent = () => {
         <>
             <Nav>
                 <Link to="/"><Logo>Litable</Logo></Link>
-                <div className="link-group">
-                    <Link to="/login" className="link">Se Connecter</Link>
-                    <Link to="/register" className="link">S'inscrire</Link>
-                    <Link to="/stock" className="link">Stocks</Link>
+                <div className={styles.linkGroup}>
+                    <Link to="/login" className={styles.link}>Se Connecter</Link>
+                    <Link to="/register" className={styles.link}>S'inscrire</Link>
+                    <Link to="/stock" className={styles.link}>Stocks</Link>
                 </div>
             </Nav>
         </>

@@ -21,7 +21,7 @@ const LitablePage = () => {
     }, [houses, isLoaded])
 
     return (
-        <div>
+        <div className="container">
             <h1>Product Page</h1>
             {isLoaded ? 
             houses.map(house => <HouseCardComponent key={house._id} house={house} />)

@@ -9,4 +9,4 @@ const litableSchema = new Schema({
     imageUrl: Array
 })  
 
-module.exports = mongoose.model("Litable", litableSchema);
+module.exports = mongoose.model("Litable", litableSchema);  

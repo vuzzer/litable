@@ -3,7 +3,8 @@ import Header from './presentations/components/Header';
 import {Routes, Route,  BrowserRouter, Link} from 'react-router-dom';
 import LitablePage from './presentations/pages/LitablePage';
 import AddLitablePage from './presentations/pages/AddLitablePage';
-
+//Common stylesheet
+import "./presentations/pages/css/common.css"
 
 
 function App() {

@@ -32,7 +32,7 @@ class FormComponent extends Component {
             city: '',
             street: '',
             rent: '',
-            file: ''
+            fullpath: ''
         }
     }
 
@@ -40,16 +40,10 @@ class FormComponent extends Component {
         //Prevent default behavior of browser
         e.preventDefault();
 
-        //Debug File object
-        //console.log(this.state.file);
-
         //Add image to Firestore and store image data to mongodb
-        uploadFileToFireBase(this.state.file).then((snapshot) => {
-            console.log(snapshot)
-            console.log("Snapshot uploaded")
-            
+        uploadFileToFireBase(this.state.fullpath).then((snapshot) => {
             //Add data to mongodb
-            return postRent({...this.state})
+            return postRent({...this.state, fullpath: snapshot.metadata.fullPath})
         })
         .then((result) => {
                 //Delete from form
@@ -57,7 +51,7 @@ class FormComponent extends Component {
                     city: '',
                     street: '',
                     rent: '',
-                    file: ''
+                    fullpath: ''
                 })
             }).catch((e) => {
                 console.log(e);
@@ -87,8 +81,8 @@ class FormComponent extends Component {
                     <label htmlFor="file">
                         <img src={image} alt="" style={{ width: "30px" }} /><br />
                         {/*  If file exist, its name is displayed or asked to load file */}
-                        {this.state.file !== '' ? this.state.file.name : "Sélectionner une Image de la maison/appart."}
-                        <input type="file" name="" id="file" accept="image/png, image/jpeg" onChange={(e) => this.setState({ file: e.target.files[0] })} className="file" />
+                        {this.state.fullpath !== '' ? this.state.fullpath.name : "Sélectionner une Image de la maison/appart."}
+                        <input type="file" name="" id="file" accept="image/png, image/jpeg" onChange={(e) => this.setState({ fullpath: e.target.files[0] })} className="file" />
                     </label>
                     <button type="submit">Valider</button>
                 </FormStyled>
