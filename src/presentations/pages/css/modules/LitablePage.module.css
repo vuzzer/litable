@@ -1,0 +1,8 @@
+.displayContainer {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    flex-grow: 0;
+    flex-shrink: 0;
+    gap: 1rem;
+}

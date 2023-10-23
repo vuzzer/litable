@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import { displayLitable } from "../../data/litable";
 import { HouseCardComponent } from "../components/HouseCardComponent";
+import styles from "./css/modules/LitablePage.module.css"
+import  ErrorBoundary from "./ErrorBoundary";
 
 
 const LitablePage = () => {
@@ -9,11 +11,10 @@ const LitablePage = () => {
 
     //useEffect is called at mounting and updating
     useEffect(() => {
-        displayLitable().then((res) => {
-              //console.log(res["data"])
-              // Fetch data from API
-              if (isLoaded === false) {
-                setHouses(res["data"])
+        //Get house data
+        displayLitable().then((responseData) => {
+            if (isLoaded === false) {
+                setHouses(responseData["data"])
                 setLoaded(true)
             }
         })
@@ -23,13 +24,17 @@ const LitablePage = () => {
     return (
         <div className="container">
             <h1>Product Page</h1>
-            {isLoaded ? 
-            houses.map(house => <HouseCardComponent key={house._id} house={house} />)
-             : "donnée en cours de chargement"}
+            {isLoaded ?
+                (
+                    <div className={styles.displayContainer} >
+                        {houses.map(house => <ErrorBoundary key={house._id} fallback="Une erreur s'est produite"><HouseCardComponent key={house._id}  house={house} /></ErrorBoundary> )}
+                    </div>
+                )
+                : "donnée en cours de chargement"}
         </div>
 
     )
 }
 
 
-export default LitablePage;
+export default memo(LitablePage);

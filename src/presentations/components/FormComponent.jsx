@@ -1,6 +1,6 @@
 import { Component } from "react";
 import styled from "styled-components";
-import './css/Form.css';
+import styles from './css/modules/Form.module.css';
 import image from '../../assets/file.svg'
 import { postRent } from "../../data/litable"
 import { Navigate } from "react-router-dom";
@@ -42,6 +42,7 @@ class FormComponent extends Component {
 
         //Add image to Firestore and store image data to mongodb
         uploadFileToFireBase(this.state.fullpath).then((snapshot) => {
+            console.log(snapshot);
             //Add data to mongodb
             return postRent({...this.state, fullpath: snapshot.metadata.fullPath})
         })
@@ -82,7 +83,7 @@ class FormComponent extends Component {
                         <img src={image} alt="" style={{ width: "30px" }} /><br />
                         {/*  If file exist, its name is displayed or asked to load file */}
                         {this.state.fullpath !== '' ? this.state.fullpath.name : "Sélectionner une Image de la maison/appart."}
-                        <input type="file" name="" id="file" accept="image/png, image/jpeg" onChange={(e) => this.setState({ fullpath: e.target.files[0] })} className="file" />
+                        <input type="file" name="" id="file" accept="image/png, image/jpeg" onChange={(e) => this.setState({ fullpath: e.target.files[0] })} className={styles.file} />
                     </label>
                     <button type="submit">Valider</button>
                 </FormStyled>

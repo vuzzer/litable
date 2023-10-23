@@ -1,0 +1,23 @@
+ul{
+    list-style-type: none;
+    display: inline-block;
+}
+
+.card{
+    border: 1px solid #713ABE;
+    margin: 1rem 0;
+    width: 300px;
+    margin: 15px auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cardImage{
+    height: 200px;
+    width: 200px;
+}
+
+.img{
+    height: 100%;
+    width: 100%;
+}
