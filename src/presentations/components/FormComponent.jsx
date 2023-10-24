@@ -32,7 +32,8 @@ class FormComponent extends Component {
             city: '',
             street: '',
             rent: '',
-            fullpath: ''
+            fullpath: '',
+            submit: false
         }
     }
 
@@ -52,7 +53,8 @@ class FormComponent extends Component {
                     city: '',
                     street: '',
                     rent: '',
-                    fullpath: ''
+                    fullpath: '',
+                    submit: true
                 })
             }).catch((e) => {
                 console.log(e);

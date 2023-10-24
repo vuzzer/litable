@@ -1,12 +1,7 @@
-ul{
-    list-style-type: none;
-    display: inline-block;
-}
-
 .card{
     border: 1px solid #713ABE;
     margin: 1rem 0;
-    width: 300px;
+    width: 350px;
     margin: 15px auto;
     display: flex;
     justify-content: space-between;
@@ -20,4 +15,13 @@ ul{
 .img{
     height: 100%;
     width: 100%;
+}
+
+.ul{
+    list-style-type: none;
+    display: inline-block;
+}
+
+.ul span {
+    font-weight: bold;
 }
