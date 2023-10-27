@@ -1,10 +1,11 @@
-import { Component } from "react";
+import { Component, useRef, useState } from "react";
 import styled from "styled-components";
 import styles from './css/modules/Form.module.css';
 import image from '../../assets/file.svg'
 import { postRent } from "../../data/litable"
 import { Navigate } from "react-router-dom";
 import { uploadFileToFireBase } from "../../core/firebase/storage";
+import { useForm } from "react-hook-form"
 
 
 const FormStyled = styled.form`
@@ -24,74 +25,66 @@ const DivStyled = styled.div`
 `
 
 
-class FormComponent extends Component {
+const FormComponent = () => {
+    const [redirect, setRedirect] = useState(false)
+    const { register, handleSubmit, formState: { errors }, watch } = useForm()
 
-    constructor() {
-        super();
-        this.state = {
-            city: '',
-            street: '',
-            rent: '',
-            fullpath: '',
-            submit: false
-        }
-    }
+    //Declare variable that watch changement of field image
+    const watchFileField = watch("image")
 
-    onSubmit = (e) => {
-        //Prevent default behavior of browser
-        e.preventDefault();
-
+    const validationForm = (data) => {
+        console.log(data)
         //Add image to Firestore and store image data to mongodb
-        uploadFileToFireBase(this.state.fullpath).then((snapshot) => {
+        uploadFileToFireBase(data.image[0]).then((snapshot) => {
             console.log(snapshot);
             //Add data to mongodb
-            return postRent({...this.state, fullpath: snapshot.metadata.fullPath})
+            return postRent({ ...data, fullpath: snapshot.metadata.fullPath })
         })
-        .then((result) => {
-                //Delete from form
-                this.setState({
-                    city: '',
-                    street: '',
-                    rent: '',
-                    fullpath: '',
-                    submit: true
-                })
+            .then((_) => {
+                //Set redirect to true to redirect to route /
+                setRedirect(true);
             }).catch((e) => {
                 console.log(e);
             })
     }
 
+    return (
+        redirect ? (<Navigate to="/" />) : (<>
+        {console.log(watchFileField)}
+            <h1>Ajouter une litable</h1>
+            <FormStyled onSubmit={handleSubmit(validationForm)}>
+                <DivStyled>
+                    <label>Ville</label>
+                    <input type="text" {...register("ville")} />
+                    {/* error is returned when field validation fields */}
+                    {errors.rue && <span style={{ color: "red" }}>Saisir le nom de la ville</span>}
+                </DivStyled>
+                <DivStyled>
+                    <label>Rue</label>
+                    <input type="text" {...register("rue", { required: true })} />
+                    {/* error is returned when field validation fields */}
+                    {errors.rue && <span style={{ color: "red" }}>Saisir le nom de la rue</span>}
+                </DivStyled>
 
-    render() {
-        return (
-            this.state.submit ? (<Navigate to="/" />) : (<>
-                <h1>Ajouter une litable</h1>
-                <FormStyled onSubmit={(e) => this.onSubmit(e)}>
-                    <DivStyled>
-                        <label>Ville</label>
-                        <input value={this.state.city} type="text" onChange={(e) => this.setState({ city: e.target.value })} />
-                    </DivStyled>
-                    <DivStyled>
-                        <label>Rue</label>
-                        <input type="text" value={this.state.street} onChange={(e) => this.setState({ street: e.target.value })} />
-                    </DivStyled>
+                <DivStyled>
+                    <label>Loyer</label>
+                    <input type="number" {...register("rent", { required: true })} />
+                    {/* error is returned when field validation fields */}
+                    {errors.loyer && <span style={{ color: "red" }}>Saisir le prix du loyer</span>}
+                </DivStyled>
 
-                    <DivStyled>
-                        <label>Loyer</label>
-                        <input type="number" value={this.state.rent} onChange={(e) => this.setState({ rent: e.target.value })} />
-                    </DivStyled>
-
-                    <label htmlFor="file">
-                        <img src={image} alt="" style={{ width: "30px" }} /><br />
-                        {/*  If file exist, its name is displayed or asked to load file */}
-                        {this.state.fullpath !== '' ? this.state.fullpath.name : "Sélectionner une Image de la maison/appart."}
-                        <input type="file" name="" id="file" accept="image/png, image/jpeg" onChange={(e) => this.setState({ fullpath: e.target.files[0] })} className={styles.file} />
-                    </label>
-                    <button type="submit">Valider</button>
-                </FormStyled>
-            </>)
-        )
-    }
+                <label htmlFor="photo">
+                    <img src={image} alt="" style={{ width: "30px" }} /><br />
+                    {/*  If file exist, its name is displayed or asked to load file */}
+                    {(watchFileField && !errors.image) ? watchFileField[0].name : ("Sélectionner une Image de la maison/appart.")}
+                    <input type="file" {...register("image", {required: true})} id="photo" accept="image/png, image/jpeg" className={styles.file} />
+                    {/* error is returned when field validation fields */}
+                    {errors.image && <p style={{ color: "red" }}>Selectionnez une image</p>}
+                </label>
+                <button type="submit">Valider</button>
+            </FormStyled>
+        </>)
+    )
 }
 
 
