@@ -6,7 +6,8 @@ import { postRent } from "../../data/litable"
 import { Navigate } from "react-router-dom";
 import { uploadFileToFireBase } from "../../core/firebase/storage";
 import { useForm, useWatch } from "react-hook-form"
-import Spinner from 'react-bootstrap/Spinner'
+import {Spinner, Button} from 'react-bootstrap'
+import { ModalComponent } from "./ModalComponent";
 
 
 const FormStyled = styled.form`
@@ -29,6 +30,8 @@ const DivStyled = styled.div`
 const FormComponent = () => {
     const [redirect, setRedirect] = useState(false)
     const [loading, setLoading] = useState(false);
+    const [showModal, setShowModal] = useState(false)
+
     const { register, handleSubmit, formState: { errors }, control } = useForm()
 
     const validationForm = async (data) => {
@@ -47,7 +50,8 @@ const FormComponent = () => {
                 //Set redirect to true to redirect to route /
                 setRedirect(true);
             }).catch((e) => {
-                
+                console.log(e)
+                setShowModal(true)
             }).finally(()=>{
                 setLoading(false)
             })
@@ -85,8 +89,10 @@ const FormComponent = () => {
                     {/* error is returned when no file exists */}
                     {errors.image && <p style={{ color: "red" }}>Selectionnez une image</p>}
                 </label>
-                <button type="submit" disabled={loading}> {loading ? (<Spinner animation="border"/>) : "Valider"}</button>
+                <Button type="submit" disabled={loading}> {loading ? (<Spinner animation="border"/>) : "Valider"}</Button>
             </FormStyled>
+            {showModal && ( <ModalComponent showModal={showModal} />)}
+           
         </>)
     )
 }
