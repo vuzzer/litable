@@ -92,7 +92,6 @@ const FormComponent = () => {
                 <Button type="submit" disabled={loading}> {loading ? (<Spinner animation="border"/>) : "Valider"}</Button>
             </FormStyled>
             {showModal && ( <ModalComponent showModal={showModal} />)}
-           
         </>)
     )
 }
