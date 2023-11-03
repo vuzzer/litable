@@ -18,22 +18,9 @@ const LitablePage = () => {
             //Add pagination
             let item = data["metadata"]["numberPages"]
             let active = data["metadata"]["currentPage"] //Indicate current page displayed
-            setPagination(prevState => {
-                let items = []
-                for(let i=1; i<item+1; i++){
-                    if(i === active){
-                        items.push(
-                            <Pagination.Item active>{i}</Pagination.Item>
-                        )
-                    }else{
-                        items.push(
-                            <Pagination.Item>{i}</Pagination.Item>
-                        )
-                    }
-                }
-                return items;
-            })
-           
+      
+            //Build items pagination
+            renderPaginationItem(item, active)
 
             if (isLoaded === false) {
                 setHouses(data["data"])
@@ -41,7 +28,41 @@ const LitablePage = () => {
             }
         })
             .catch(e => console.log(e))
-    }, [houses, isLoaded, pagination])
+    }, [isLoaded])
+
+
+    const paginateData = (page)=>{
+        console.log("paginateData called")
+        displayLitable(page).then(({data}) => {
+            //Add pagination
+            let item = data["metadata"]["numberPages"]
+            let active = data["metadata"]["currentPage"] //Indicate current page displayed
+
+            //Build items pagination
+            renderPaginationItem(item, active)
+
+            setHouses(data["data"])
+        })
+            .catch(e => console.log(e))
+    } 
+
+    const renderPaginationItem = (item, active)=> {
+        setPagination(prevState => {
+            let items = []
+            for(let i=1; i<item+1; i++){
+                if(i === active){
+                    items.push(
+                        <Pagination.Item active onClick={() => paginateData(i)}>{i}</Pagination.Item>
+                    )
+                }else{
+                    items.push(
+                        <Pagination.Item onClick={() => paginateData(i)}>{i}</Pagination.Item>
+                    )
+                }
+            }
+            return items;
+        })
+    }
 
     return (
         <div className="container">

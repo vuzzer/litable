@@ -40,7 +40,7 @@ exports.displayLitable = (req, res, next) => {
         numberPages = quotient + rest
 
         //Apply pagination and sorting
-        return Litable.find().skip((currentPage-1)*itemsPerPage).limit(itemsPerPage).sort({createdAt: "desc"})
+        return Litable.find().skip((currentPage-1)*itemsPerPage).limit(itemsPerPage).sort({rent: "asc"})
     }).then(data => {
         return res.json({metadata:{
             currentPage: parseInt(currentPage),

@@ -36,7 +36,7 @@ const FormComponent = () => {
 
     const validationForm = async (data) => {
         //Declare a variable to cancel upload file
-        const uploadTask = uploadFileToFireBase(data.image[0]);
+        const uploadTask = uploadFileToFireBase(data.imageUrl[0]);
 
         //Disable send button in form
         setLoading(true)
@@ -63,15 +63,15 @@ const FormComponent = () => {
             <FormStyled onSubmit={handleSubmit(validationForm)}>
                 <DivStyled>
                     <label>Ville</label>
-                    <input type="text" {...register("ville", {required: true})} />
+                    <input type="text" {...register("city", {required: true})} />
                     {/* error is returned when field ville fails */}
-                    {errors.ville && <span style={{ color: "red" }}>Saisir le nom de la ville</span>}
+                    {errors.city && <span style={{ color: "red" }}>Saisir le nom de la ville</span>}
                 </DivStyled>
                 <DivStyled>
                     <label>Rue</label>
-                    <input type="text" {...register("rue", { required: true })} />
+                    <input type="text" {...register("street", { required: true })} />
                     {/* error is returned when field rue fails */}
-                    {errors.rue && <span style={{ color: "red" }}>Saisir le nom de la rue</span>}
+                    {errors.street && <span style={{ color: "red" }}>Saisir le nom de la rue</span>}
                 </DivStyled>
 
                 <DivStyled>
@@ -85,9 +85,9 @@ const FormComponent = () => {
                     <img src={image} alt="" style={{ width: "30px" }} /><br />
                     {/*  If file exist, its name is displayed or asked to load file */}
                     <WatchFielField control={control} />
-                    <input type="file" {...register("image", {required: true})} id="photo" accept="image/png, image/jpeg" className={styles.file} />
+                    <input type="file" {...register("imageUrl", {required: true})} id="photo" accept="image/png, image/jpeg" className={styles.file} />
                     {/* error is returned when no file exists */}
-                    {errors.image && <p style={{ color: "red" }}>Selectionnez une image</p>}
+                    {errors.imageUrl && <p style={{ color: "red" }}>Selectionnez une image</p>}
                 </label>
                 <Button type="submit" disabled={loading}> {loading ? (<Spinner animation="border"/>) : "Valider"}</Button>
             </FormStyled>
@@ -100,7 +100,7 @@ const FormComponent = () => {
 function WatchFielField({control}){
     const watchfileField = useWatch({
         control: control,
-        name: "image",
+        name: "imageUrl",
         defaultValue: "default"
     })
 

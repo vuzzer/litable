@@ -14,9 +14,10 @@ export const postRent = (rental) => {
 }
 
 
-export const displayLitable = () => {
+export const displayLitable = (page = 1) => {
     return axios({
         method: 'GET',
-        url: URL + "/litable/display",
+        url: URL + `/litable/display?page=${page}`,
     });
 }
+
