@@ -4,6 +4,7 @@ import { HouseCardComponent } from "../components/HouseCardComponent";
 import styles from "./css/modules/LitablePage.module.css"
 import  ErrorBoundary from "./ErrorBoundary";
 import Pagination from "react-bootstrap/Pagination"
+import { PaginationComponent } from "../components/PaginationComponent";
 
 
 const LitablePage = () => {
@@ -46,7 +47,7 @@ const LitablePage = () => {
             .catch(e => console.log(e))
     } 
 
-    const renderPaginationItem = (item, active)=> {
+    const renderPaginationItem =  (item, active)=> {
         setPagination(prevState => {
             let items = []
             for(let i=1; i<item+1; i++){
@@ -76,9 +77,7 @@ const LitablePage = () => {
                 : "donnée en cours de chargement"}
 
                 {isLoaded && (
-                    <Pagination>
-                        {...pagination}
-                    </Pagination>
+                    <PaginationComponent />
                 )}
         </div>
 
