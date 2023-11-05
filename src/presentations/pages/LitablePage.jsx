@@ -77,7 +77,7 @@ const LitablePage = () => {
                 : "donnée en cours de chargement"}
 
                 {isLoaded && (
-                    <PaginationComponent />
+                    <PaginationComponent items={items}/>
                 )}
         </div>
 

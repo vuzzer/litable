@@ -1,11 +1,13 @@
+import { memo } from "react"
 import Pagination from "react-bootstrap/Pagination"
 
-export const PaginationComponent = ({ items, active }) => {
+export const PaginationComponent = memo(({ items }) => {
+    console.log("Je suis dans le composant PaginationComponent")
     return (
         <>
             <Pagination>
-                <Pagination.Item>1</Pagination.Item>
+               {...items}
             </Pagination>
         </>
     )
-}
+})
