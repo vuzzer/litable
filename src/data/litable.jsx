@@ -19,5 +19,5 @@ export const displayLitable = (page = 1) => {
         method: 'GET',
         url: URL + `/litable/display?page=${page}`,
     });
-}
+}   
 

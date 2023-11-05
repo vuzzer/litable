@@ -1,4 +1,4 @@
-import { useEffect, useState, memo } from "react";
+import { useEffect, useState, memo, useCallback } from "react";
 import { displayLitable } from "../../data/litable";
 import { HouseCardComponent } from "../components/HouseCardComponent";
 import styles from "./css/modules/LitablePage.module.css"
@@ -11,7 +11,8 @@ const LitablePage = () => {
     const [houses, setHouses] = useState([]);
     const [isLoaded, setLoaded] = useState(false)
     const [pagination, setPagination] = useState([]); //contains pagination
-
+    const [currentPage, setCurrentPage] = useState(1)
+ 
     //useEffect is called at mounting and updating
     useEffect(() => {
         //Get house data
@@ -29,27 +30,27 @@ const LitablePage = () => {
             }
         })
             .catch(e => console.log(e))
-    }, [isLoaded])
+    }, [])
 
 
-    const paginateData = (page)=>{
+    const paginateData = useCallback((page)=>{
         console.log("paginateData called")
         displayLitable(page).then(({data}) => {
             //Add pagination
-            let item = data["metadata"]["numberPages"]
-            let active = data["metadata"]["currentPage"] //Indicate current page displayed
+            let numberPages = data["metadata"]["numberPages"]
+            let currentPage = data["metadata"]["currentPage"] //Indicate current page displayed
 
             //Build items pagination
-            renderPaginationItem(item, active)
-
+            renderPaginationItem(numberPages, currentPage)
             setHouses(data["data"])
         })
             .catch(e => console.log(e))
-    } 
+    }, [currentPage])
 
     const renderPaginationItem =  (item, active)=> {
         setPagination(prevState => {
             let items = []
+            
             for(let i=1; i<item+1; i++){
                 if(i === active){
                     items.push(
@@ -63,6 +64,7 @@ const LitablePage = () => {
             }
             return items;
         })
+        
     }
 
     return (
@@ -77,7 +79,7 @@ const LitablePage = () => {
                 : "donnée en cours de chargement"}
 
                 {isLoaded && (
-                    <PaginationComponent items={items}/>
+                    <PaginationComponent pagination={pagination}/>
                 )}
         </div>
 
