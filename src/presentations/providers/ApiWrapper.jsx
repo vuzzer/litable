@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export const ApiWrapper = ({children}) => {
+export const APIWrapper = ({children}) => {
     const [litables, setLitables] = useState([]);
 
     useEffect(()=>{

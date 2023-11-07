@@ -34,7 +34,6 @@ const LitablePage = () => {
 
 
     const paginateData = useCallback((page)=>{
-        console.log("paginateData called")
         displayLitable(page).then(({data}) => {
             //Add pagination
             let numberPages = data["metadata"]["numberPages"]
@@ -50,7 +49,6 @@ const LitablePage = () => {
     const renderPaginationItem =  (item, active)=> {
         setPagination(prevState => {
             let items = []
-            
             for(let i=1; i<item+1; i++){
                 if(i === active){
                     items.push(
