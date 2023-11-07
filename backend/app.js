@@ -14,6 +14,7 @@ const litableRoute = require("./routes/litable");
 app.use(bodyParser.json())
 
 
+//Middleware cors error
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(

@@ -19,7 +19,6 @@ exports.addLitable = (req, res, next) => {
     litable.save().then((result)=>{
         return res.status(201).json({message: "litable created successful", litable: {city: city, street: street, rent:rent} })
     }).catch((e)=>{
-        console.log(e)
         const error = new Error("Error occured during operation")
         next(error)
     })
@@ -62,7 +61,14 @@ exports.updateLitable = (req, res, next) => {
 
 
 exports.deleteLitable = (req, res, next) => {
-    res.json({
-        "delete": "House deleted !"
+
+    //Find litable that match with id in request
+    Litable.findOne({_id: Object("6536f6efb66ab12305be2256")}).then((litable)=>{
+        res.json(litable)
+    }).catch(error => {
+        res.json({
+            "delete": "No data Found"
+        })
     })
+
 }

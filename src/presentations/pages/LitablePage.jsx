@@ -11,7 +11,6 @@ const LitablePage = () => {
     const [houses, setHouses] = useState([]);
     const [isLoaded, setLoaded] = useState(false)
     const [pagination, setPagination] = useState([]); //contains pagination
-    const [currentPage, setCurrentPage] = useState(1)
  
     //useEffect is called at mounting and updating
     useEffect(() => {
@@ -44,7 +43,7 @@ const LitablePage = () => {
             setHouses(data["data"])
         })
             .catch(e => console.log(e))
-    }, [currentPage])
+    }, )
 
     const renderPaginationItem =  (item, active)=> {
         setPagination(prevState => {

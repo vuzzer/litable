@@ -11,4 +11,4 @@ router.put("/update", controllerLitable.updateLitable)
 router.delete("/delete", controllerLitable.deleteLitable)
 
 
-module.exports = router;
+module.exports = router; 
