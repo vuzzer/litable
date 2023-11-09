@@ -21,3 +21,17 @@ export const displayLitable = (page = 1) => {
     });
 }   
 
+
+export const deleteLitable = (id) => {
+    return axios({
+        headers:{
+            "Content-Type": "application/json",
+        },
+        method: "DELETE",
+        url: URL  + `/litable/delete`,
+        params: {
+            "id": id
+        }
+    })
+}
+

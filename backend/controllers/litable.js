@@ -61,10 +61,16 @@ exports.updateLitable = (req, res, next) => {
 
 
 exports.deleteLitable = (req, res, next) => {
+    let id = req.query["id"] ?? null
+
+    if(id === null){
+        throw Error("Id incorrect ou null")
+    }
 
     //Find litable that match with id in request
-    Litable.findOne({_id: Object("6536f6efb66ab12305be2256")}).then((litable)=>{
-        res.json(litable)
+    Litable.findByIdAndDelete({_id: Object(id)}).then((_)=>{
+        //Indicate no content to return
+        res.sendStatus(204)
     }).catch(error => {
         res.json({
             "delete": "No data Found"

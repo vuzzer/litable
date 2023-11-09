@@ -2,11 +2,13 @@ import styles from "./css/modules/HouseCard.module.css"
 import { useEffect, useState } from "react"
 import { downloadImgFromUrl } from "../../core/firebase/storage"
 import Button from "react-bootstrap/Button"
+import { deleteLitable } from "../../data/litable"
 
 
 
 export const HouseCardComponent = ({ house }) => {
     const [imageUrl, setImageUrl] = useState("")
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
         //Check if array of image is not null and download first image of room or house
@@ -18,6 +20,22 @@ export const HouseCardComponent = ({ house }) => {
             })
         }
     }, [imageUrl])
+
+
+    const deleteLitableImpl = (id) => {
+        //Disable delete button during loading
+        setIsLoading(true)
+
+        //Delete a litable
+        deleteLitable(id).then((_)=>{
+            console.log("item deleted")
+        }).catch(e => {
+            console.log(e)
+        }).finally(()=>{
+            setIsLoading(false)
+        })
+    } 
+
 
     return (
 
@@ -31,7 +49,7 @@ export const HouseCardComponent = ({ house }) => {
                 <li >Rue: <span>{house.street}</span> </li>
                 <li>Prix location: <span>${house.rent}</span></li>
             </ul>
-                <Button variant="danger">Supprimer</Button>
+                <Button variant="danger" onClick={() => deleteLitableImpl(house._id)} disabled={isLoading}>Supprimer</Button>
                 <Button variant="success">Mettre à jour</Button>
             </div>
         </div>
