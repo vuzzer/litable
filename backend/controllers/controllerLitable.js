@@ -1,6 +1,6 @@
-const Litable = require("../models/litable")
+"use strict";
 
-//TODO: Split data for pagination in frontend
+const Litable = require("../models/litable")
 
 exports.addLitable = (req, res, next) => {
     //Destructing of req.body to get values
@@ -25,6 +25,7 @@ exports.addLitable = (req, res, next) => {
   
 }
 
+//Return litable list with pagination metadata to display litable
 exports.displayLitable = (req, res, next) => {
     //Pagination parameter
     let numberPages; //Number of page
@@ -53,13 +54,27 @@ exports.displayLitable = (req, res, next) => {
 }
 
 
+//Update Litable
 exports.updateLitable = (req, res, next) => {
-    res.json({
-        "update": "House update !"
+    //Get id passed as params in URL
+    let byId = req.query["byId"] ?? null;
+
+    if(byId === null){
+        //Error parameter is thrown
+        let error = new Error()
+        error.message = "Parameter incorrect"
+        throw error
+    }
+
+    Litable.findById({_id:Object(byId)} ).then((litable) => {
+        res.sendStatus(204);
+    }).catch((e) => {
+        throw new Error("Error occured during updating data")
     })
 }
 
 
+//Delete Litable
 exports.deleteLitable = (req, res, next) => {
     let id = req.query["id"] ?? null
 
@@ -77,4 +92,27 @@ exports.deleteLitable = (req, res, next) => {
         })
     })
 
+}
+
+
+//Get Litable By ID
+//Update Litable
+exports.getLitableById = (req, res, next) => {
+    //Get id passed as params in URL
+    let byId = req.query["byId"] ?? null;
+
+    if(byId === null){
+        //Error parameter is thrown
+        let error = new Error()
+        error.message = "Parameter incorrect"
+        throw error
+    }
+
+    Litable.findById({_id:Object(byId)} ).then((litable) => {
+        res.json(litable)
+    }).catch((e) => {
+        let error = new Error()
+        error.message = "Error occured during updating data"
+        throw error
+    })
 }

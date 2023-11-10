@@ -8,7 +8,7 @@ const cors = require("cors")
 require("dotenv").config({ path: __dirname + "/config/.env" });
 
 //Routing
-const litableRoute = require("./routes/litable");
+const litableRoute = require("./routes/litableRoutes");
 
 //Middlewares
 app.use(bodyParser.json())
@@ -38,19 +38,16 @@ app.use((req, res, next) => {
 
 //Handle Error thrown
 app.use((error, req, res, next) => {
-  console.log(error)
   res.status(422).json({
-    message: "Not found"
+    message: error.message
   });
 });
 
 //Connect to mongoose
 mongoose
   .connect(process.env.MONGO_URL)
-  .then((connected) => {
-    app.listen(3000, () => {
-      console.log("Server is listening port 3000");
-    });
+  .then((_) => {
+    app.listen(3000);
   })
   .catch((e) => {
     console.log(e);

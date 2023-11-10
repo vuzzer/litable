@@ -1,5 +1,5 @@
 import { useEffect, useState, memo, useCallback } from "react";
-import { displayLitable } from "../../data/litable";
+import { displayLitable } from "../../data/litableData";
 import { HouseCardComponent } from "../components/HouseCardComponent";
 import styles from "./css/modules/LitablePage.module.css"
 import  ErrorBoundary from "./ErrorBoundary";

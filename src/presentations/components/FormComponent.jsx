@@ -2,9 +2,9 @@ import { Component, useRef, useState } from "react";
 import styled from "styled-components";
 import styles from './css/modules/Form.module.css';
 import image from '../../assets/file.svg'
-import { postRent } from "../../data/litable"
+import { postRent } from "../../data/litableData"
 import { Navigate } from "react-router-dom";
-import { uploadFileToFireBase } from "../../core/firebase/storage";
+import { uploadFileToFireBase } from "../../data/storage";
 import { useForm, useWatch } from "react-hook-form"
 import {Spinner, Button} from 'react-bootstrap'
 import { ModalComponent } from "./ModalComponent";
