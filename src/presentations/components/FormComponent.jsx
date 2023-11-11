@@ -27,7 +27,7 @@ const DivStyled = styled.div`
 `
 
 
-const FormComponent = () => {
+const FormComponent = ({litable}) => {
     const [redirect, setRedirect] = useState(false)
     const [loading, setLoading] = useState(false);
     const [showModal, setShowModal] = useState(false)
@@ -63,20 +63,20 @@ const FormComponent = () => {
             <FormStyled onSubmit={handleSubmit(validationForm)}>
                 <DivStyled>
                     <label>Ville</label>
-                    <input type="text" {...register("city", {required: true})} />
+                    <input type="text" {...register("city", {required: true})} value={(litable) && litable.city} />
                     {/* error is returned when field ville fails */}
                     {errors.city && <span style={{ color: "red" }}>Saisir le nom de la ville</span>}
                 </DivStyled>
                 <DivStyled>
                     <label>Rue</label>
-                    <input type="text" {...register("street", { required: true })} />
+                    <input type="text" {...register("street", { required: true })} value={(litable) && litable.street}  />
                     {/* error is returned when field rue fails */}
                     {errors.street && <span style={{ color: "red" }}>Saisir le nom de la rue</span>}
                 </DivStyled>
 
                 <DivStyled>
                     <label>Loyer</label>
-                    <input type="number" {...register("rent", { required: true })} />
+                    <input type="number" {...register("rent", { required: true })} value={(litable) && litable.rent}/>
                     {/* error is returned when field rent fails */}
                     {errors.rent && <span style={{ color: "red" }}>Saisir le prix du loyer</span>}
                 </DivStyled>
@@ -85,7 +85,7 @@ const FormComponent = () => {
                     <img src={image} alt="" style={{ width: "30px" }} /><br />
                     {/*  If file exist, its name is displayed or asked to load file */}
                     <WatchFielField control={control} />
-                    <input type="file" {...register("imageUrl", {required: true})} id="photo" accept="image/png, image/jpeg" className={styles.file} />
+                    <input type="file" {...register("imageUrl", {required: true})} id="photo" accept="image/png, image/jpeg" className={styles.file} filename={(litable) && litable.imageUrl} />
                     {/* error is returned when no file exists */}
                     {errors.imageUrl && <p style={{ color: "red" }}>Selectionnez une image</p>}
                 </label>

@@ -84,4 +84,4 @@ const LitablePage = () => {
 }
 
 
-export default memo(LitablePage);
+export default LitablePage;

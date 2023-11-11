@@ -2,27 +2,16 @@
 
 import { useParams,  } from "react-router";
 import { getLitableById } from "../../data/litableData";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
+import FormComponent from "../components/FormComponent";
 
 
 export default function UpdateLitablePage() {
-    const [litable, setLitableItem] = useState(null)
-    useEffect(()=> {
-        //Get id of litable
-        const {id} = useParams();
-        getLitableById(id).then(({litable})=>{
-            setLitableItem(litable)
-        }).catch((e)=>{
-            const error = new Error()
-            error.message = "Error occured during fetching items"
-            throw error;
-        })
-
-    }, [])
+    const litable = useLitable(useParams())
     return (
         <div className="container">
             <h1>Update litable page</h1>
-            <h5>{litable}</h5>
+            {litable === null ? "loading" : <FormComponent litable={litable} />}
         </div>
     );
 }
@@ -30,19 +19,17 @@ export default function UpdateLitablePage() {
 
 
 //fetch litable based on ID
-function useLitable() {
+function useLitable({id}) {
     const [litable, setLitableItem] = useState(null)
     useEffect(()=> {
-        //Get id of litable
-        const {id} = useParams();
-        getLitableById(id).then(({litable})=>{
-            setLitableItem(litable)
+        //Get id by litable
+        getLitableById(id).then(({data})=>{
+            setLitableItem(data)
         }).catch((e)=>{
             const error = new Error()
             error.message = "Error occured during fetching items"
             throw error;
         })
-
-    }, [])
+    }, []) 
     return litable
 }
