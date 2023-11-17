@@ -5,9 +5,15 @@ import styles from "./css/modules/LitablePage.module.css"
 import  ErrorBoundary from "./ErrorBoundary";
 import Pagination from "react-bootstrap/Pagination"
 import { PaginationComponent } from "../components/PaginationComponent";
+import { useDispatch, useSelector } from "react-redux";
+import { incrementer } from "../redux/litableSlice";
 
 
 const LitablePage = () => {
+    const litable = useSelector((state) => state.value)
+    console.log(litable)
+    const dispatch = useDispatch()
+
     const [houses, setHouses] = useState([]);
     const [isLoaded, setLoaded] = useState(false)
     const [pagination, setPagination] = useState([]); //contains pagination
@@ -28,7 +34,7 @@ const LitablePage = () => {
                 setLoaded(true)
             }
         })
-            .catch(e => console.log(e))
+            .catch(e => e)
     }, [])
 
 
@@ -78,6 +84,10 @@ const LitablePage = () => {
                 {isLoaded && (
                     <PaginationComponent pagination={pagination}/>
                 )}
+                <button onClick={() => dispatch(incrementer())}>Incrementer</button>
+                <div>
+                    {litable}
+                </div>
         </div>
 
     )
