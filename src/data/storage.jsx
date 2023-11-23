@@ -1,5 +1,5 @@
 import { app } from "../core/firebase";
-import { getStorage, ref, uploadBytes, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { getStorage, ref, uploadBytes, getDownloadURL, uploadBytesResumable, deleteObject } from "firebase/storage";
 
 // Get referencet to cloud storage
 const storage = getStorage(app);
@@ -19,4 +19,12 @@ export const downloadImgFromUrl = (path) => {
 
     //Download image from URL
     return getDownloadURL(storeRef);
+}
+
+export const deleteImg = (path) =>{
+    //Get a storage reference
+    const storeRef = ref(storage, path)
+
+    //Delete image
+    return deleteObject(storeRef)
 }

@@ -2,14 +2,14 @@ import axios from "axios"
 import URL from "../core/config"
 
 
-export const postRent = (rental) => {
+export const postRent = (data) => {
     return axios({
         method: "POST",
         headers:{
             "Content-Type": "application/json"
         },
         url: URL + "/litable/post",
-        data: rental
+        data: data
     })
 }
 
@@ -41,5 +41,17 @@ export const getLitableById = (id) => {
         method: 'GET',
         url: URL + `/litable/getLitableById?byId=${id}`,
     });
+}
+
+
+export const updateLitable = (data) => {
+    return axios({
+        method: "PUT",
+        url: URL + `/litable/update`,
+        headers:{
+            "Content-Type": "application/json"
+        },
+        data: data
+    })
 }
 

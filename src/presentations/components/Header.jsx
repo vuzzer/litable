@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 import styles from './css/modules/Header.module.css'
+import { login, newLitable, register } from "../../route"
 
 const Nav = styled.nav `
     position: fixed;
@@ -26,9 +27,9 @@ const HeaderComponent = () => {
             <Nav>
                 <Link to="/"><Logo>Litable</Logo></Link>
                 <div className={styles.linkGroup}>
-                    <Link to="/login" className={styles.link}>Se Connecter</Link>
-                    <Link to="/register" className={styles.link}>S'inscrire</Link>
-                    <Link to="/stock" className={styles.link}>Stocks</Link>
+                    <Link to={login} className={styles.link}>Se Connecter</Link>
+                    <Link to={register} className={styles.link}>S'inscrire</Link>
+                    <Link to={newLitable} className={styles.link}>Nouvelle Litable</Link>
                 </div>
             </Nav>
         </>

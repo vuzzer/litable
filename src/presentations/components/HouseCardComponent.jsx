@@ -1,13 +1,13 @@
 import styles from "./css/modules/HouseCard.module.css"
 import { useEffect, useState } from "react"
-import { downloadImgFromUrl } from "../../data/storage"
+import { deleteImg, downloadImgFromUrl } from "../../data/storage"
 import Button from "react-bootstrap/Button"
 import { deleteLitable } from "../../data/litableData"
 import { Navigate, redirect } from "react-router-dom"
 
 
 
-export const HouseCardComponent = ({ house }) => {
+export const HouseCardComponent = ({ house, index, deleteLitableImpl }) => {
     const [imageUrl, setImageUrl] = useState("")
     const [isLoading, setIsLoading] = useState(false)
     const [redirectRoute, setRedirectRoute] = useState(false)
@@ -24,19 +24,19 @@ export const HouseCardComponent = ({ house }) => {
     }, [imageUrl])
 
 
-    const deleteLitableImpl = (id) => {
+/*     const deleteLitable = ({_id, imageUrl}) => {
         //Disable delete button during loading
         setIsLoading(true)
 
         //Delete a litable
-        deleteLitable(id).then((_)=>{
-            console.log("item deleted")
+        deleteImg(imageUrl[0]).then((_)=>{
+            return deleteLitable(_id)
         }).catch(e => {
             console.log(e)
         }).finally(()=>{
             setIsLoading(false)
         })
-    } 
+    }  */
 
 
     return (
@@ -51,7 +51,7 @@ export const HouseCardComponent = ({ house }) => {
                 <li >Rue: <span>{house.street}</span> </li>
                 <li>Prix location: <span>${house.rent}</span></li>
             </ul>
-                <Button variant="danger" onClick={() => deleteLitableImpl(house._id)} disabled={isLoading}>Supprimer</Button>
+                <Button variant="danger" onClick={() => deleteLitableImpl(house, index)} disabled={isLoading}>Supprimer</Button>
                 <Button variant="success" onClick={() => setRedirectRoute(true) } >Mettre à jour</Button>
                 {redirectRoute && (<Navigate to={`/update/${house._id}`} /> )}
             </div>

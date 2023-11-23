@@ -3,7 +3,7 @@
 const Litable = require("../models/litable")
 
 exports.addLitable = (req, res, next) => {
-    //Destructing of req.body to get values
+    //Get data body from request
     const {city, street, rent, fullpath} = req.body;
 
     //Create an Litable object
@@ -56,20 +56,23 @@ exports.displayLitable = (req, res, next) => {
 
 //Update Litable
 exports.updateLitable = (req, res, next) => {
-    //Get id passed as params in URL
-    let byId = req.query["byId"] ?? null;
+    //Get data body from request
+    const {id, city, street, rent, fullpath} = req.body;
 
-    if(byId === null){
-        //Error parameter is thrown
-        let error = new Error()
-        error.message = "Parameter incorrect"
-        throw error
-    }
+    //filter params
+    const filter = {_id:Object(id)}
 
-    Litable.findById({_id:Object(byId)} ).then((litable) => {
+    //filter update
+    const update = {city: city, street: street, rent:rent, fullpath: fullpath }
+
+
+    // update litable and return data
+    Litable.findOneAndUpdate(filter, update, {new: true}).then((litable) => {
         res.sendStatus(204);
     }).catch((e) => {
-        throw new Error("Error occured during updating data")
+        const error = new Error()
+        error.message = "Error occured during updating data"
+        throw error
     })
 }
 
@@ -79,7 +82,9 @@ exports.deleteLitable = (req, res, next) => {
     let id = req.query["id"] ?? null
 
     if(id === null){
-        throw Error("Id incorrect ou null")
+        const error = new Error()
+        error.message = "Id incorrect ou null"
+        throw error
     }
 
     //Find litable that match with id in request

@@ -2,8 +2,8 @@
 
 import { useParams,  } from "react-router";
 import { getLitableById } from "../../data/litableData";
-import { useEffect, useLayoutEffect, useState } from "react";
-import FormComponent from "../components/FormComponent";
+import { useEffect, useState } from "react";
+import UpdateFormComponent from "../components/UpdateFormComponent";
 
 
 export default function UpdateLitablePage() {
@@ -11,7 +11,7 @@ export default function UpdateLitablePage() {
     return (
         <div className="container">
             <h1>Update litable page</h1>
-            {litable === null ? "loading" : <FormComponent litable={litable} />}
+            {litable === null ? "loading" : <UpdateFormComponent litable={litable} />}
         </div>
     );
 }

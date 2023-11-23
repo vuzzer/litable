@@ -9,6 +9,7 @@ import { store } from './presentations/redux/store';
 
 //Global stylesheet apply to all page or components
 import "./presentations/pages/css/CommonStyle.css"
+import { home, newLitable, updateOneLitable } from './route';
 
 
 
@@ -18,9 +19,9 @@ function App() {
     <BrowserRouter>
       <Header/>
         <Routes>
-          <Route exact path="/" element={ <LitablePage/>} />
-          <Route exact path="/stock" element={<AddLitablePage/>} />
-          <Route exact path='/update/:id' element={<UpdateLitablePage/>} />
+          <Route exact path={home} element={ <LitablePage/>} />
+          <Route exact path={newLitable} element={<AddLitablePage/>} />
+          <Route exact path={updateOneLitable} element={<UpdateLitablePage/>} />
         </Routes>
     </BrowserRouter>
     </Provider>
