@@ -16,6 +16,7 @@ services:
       - 5127:5127
     volumes:
       - ./:/usr/src/app
+      - /usr/src/app/node_modules
     # If your application exposes a port, uncomment the following lines and change
     # the port numbers as needed. The first number is the host port and the second
     # is the port inside the container.
