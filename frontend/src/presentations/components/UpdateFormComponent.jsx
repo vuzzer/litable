@@ -4,9 +4,9 @@ import styles from './css/modules/Form.module.css';
 import image from '../../assets/file.svg'
 import { postRent, updateLitable } from "../../data/litableData"
 import { Navigate } from "react-router-dom";
-import { uploadFileToFireBase } from "../../data/storage";
+import { updateImg, uploadFileToFireBase } from "../../data/storage";
 import { useForm, useWatch } from "react-hook-form"
-import {Spinner, Button} from 'react-bootstrap'
+import { Spinner, Button } from 'react-bootstrap'
 import { ModalComponent } from "./ModalComponent";
 import _ from "lodash"
 
@@ -29,25 +29,38 @@ const DivStyled = styled.div`
 `
 
 
-const UpdateFormComponent = ({litable}) => {
+const UpdateFormComponent = ({ litable }) => {
     const [redirect, setRedirect] = useState(false)
     const [loading, setLoading] = useState(false);
     const [showModal, setShowModal] = useState(false)
 
-    const { register, handleSubmit, formState: { errors }, control } = useForm({defaultValues:{
-        id: litable._id,
-        street: litable.street,
-        city: litable.city,
-        rent: litable.rent,
-        imageUrl: litable.imageUrl
-    }})
+    const { register, handleSubmit, formState: { errors }, control } = useForm({
+        defaultValues: {
+            id: litable._id,
+            street: litable.street,
+            city: litable.city,
+            rent: litable.rent,
+            imageUrl: litable.imageUrl
+        }
+    })
 
     const validationForm = async (data) => {
-        //Declare a variable to cancel upload file
-        const uploadTask = uploadFileToFireBase(data.imageUrl[0]);
-
         //Disable send button in form
         setLoading(true)
+
+        // Image changed, so updated it
+        // Update properties modified
+        if (_.isEqual(litable.imageUrl, data.imageUrl)) {
+            updateLitable({ ...data, fullpath: snapshot.metadata.fullPath }).catch((e) => {
+                console.log(e)
+                setShowModal(true)
+            }).finally(() => {
+                setLoading(false)
+            })
+        }
+        else{
+        //Store Stream of loading image in firebase
+        const uploadTask = updateImg(litable.imageUrl[0], data.imageUrl[0]);
 
         //Upload file and data
         uploadTask.then((snapshot) => {
@@ -60,24 +73,26 @@ const UpdateFormComponent = ({litable}) => {
             }).catch((e) => {
                 console.log(e)
                 setShowModal(true)
-            }).finally(()=>{
+            }).finally(() => {
                 setLoading(false)
             })
+        }
+
     }
 
     return (
         redirect ? (<Navigate to="/" />) : (<>
             <FormStyled onSubmit={handleSubmit(validationForm)}>
-                <input type="hidden" {...register("id", {required: true})} />
+                <input type="hidden" {...register("id", { required: true })} />
                 <DivStyled>
                     <label>Ville</label>
-                    <input type="text" {...register("city", {required: true})}  />
+                    <input type="text" {...register("city", { required: true })} />
                     {/* error is returned when field ville fails */}
                     {errors.city && <span style={{ color: "red" }}>Saisir le nom de la ville</span>}
                 </DivStyled>
                 <DivStyled>
                     <label>Rue</label>
-                    <input type="text" {...register("street", { required: true })}  />
+                    <input type="text" {...register("street", { required: true })} />
                     {/* error is returned when field rue fails */}
                     {errors.street && <span style={{ color: "red" }}>Saisir le nom de la rue</span>}
                 </DivStyled>
@@ -93,19 +108,19 @@ const UpdateFormComponent = ({litable}) => {
                     <img src={image} alt="" style={{ width: "30px" }} /><br />
                     {/*  If file exist, its name is displayed or asked to load file */}
                     <WatchFileField control={control} litable={litable} />
-                    <input type="file" {...register("imageUrl", {required: true, accept:"image/png, image/jpeg" })} id="photo" className={styles.file}  />
+                    <input type="file" {...register("imageUrl", { required: true, accept: "image/png, image/jpeg" })} id="photo" className={styles.file} />
                     {/* error is returned when no file exists */}
                     {errors.imageUrl && <p style={{ color: "red" }}>Selectionnez une image</p>}
                 </label>
-               {loading ? (<Spinner animation="border"/>) : <ButtonUpdate control={control} litable={litable}/> }
+                {loading ? (<Spinner animation="border" />) : <ButtonUpdate control={control} litable={litable} />}
             </FormStyled>
-            {showModal && ( <ModalComponent showModal={showModal} />)}
+            {showModal && (<ModalComponent showModal={showModal} />)}
         </>)
     )
 }
 
 
-function WatchFileField({control, litable}){
+function WatchFileField({ control, litable }) {
     //Watch changement of fields file   
     const watchFileFields = useWatch({
         control: control,
@@ -116,13 +131,13 @@ function WatchFileField({control, litable}){
     })
 
     //Fetch imageUrl
-    const {imageUrl} = watchFileFields
+    const { imageUrl } = watchFileFields
 
     return <span>{_.isEqual(imageUrl, litable.imageUrl) ? imageUrl[0] : watchFileFields[0].name}</span>
 }
 
 
-function ButtonUpdate({control, litable}){
+function ButtonUpdate({ control, litable }) {
     const watchAllFields = useWatch({
         control: control,
         name: ["street", "city", "rent", "imageUrl"],
@@ -138,7 +153,7 @@ function ButtonUpdate({control, litable}){
     const [streetUpdate, cityUpdate, rentUpdate, imageUrlUpdate] = watchAllFields;
 
     //Props values
-    const {street, city, rent, imageUrl} = litable;
+    const { street, city, rent, imageUrl } = litable;
 
     //check if props values and typed values are same
     //And so, activate or deactivate update button

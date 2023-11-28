@@ -4,7 +4,7 @@ import Pagination from "react-bootstrap/Pagination"
 export const PaginationComponent = memo(({ pagination }) => {
     return (
         <>
-            <Pagination>
+            <Pagination className={{}}>
                {...pagination}
             </Pagination>
         </>
