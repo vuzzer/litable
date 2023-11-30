@@ -31,7 +31,6 @@ export const updateImg = (path, file) => {
 export const deleteImg = (path) => {
     //Get a storage reference
     const storeRef = ref(storage, path)
-
     //Delete image
     return deleteObject(storeRef)
 }
