@@ -3,15 +3,24 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const cors = require("cors")
+const logger = require("morgan")
+const fs = require("fs") //FILES
+const path = require("path") //PATHS
+
 
 require("dotenv").config({ path: __dirname + "/config/.env" });
+
+//Create a write stream (in append mode)
+const accessLogStream = fs.createWriteStream(path.join(__dirname, "backend-server-logs.log"), {flags: "a"})
 
 //Routing
 const litableRoute = require("./routes/litableRoutes");
 
 //Middlewares
 app.use(bodyParser.json())
+
+//Logging
+app.use(logger("dev", {stream: accessLogStream}))
 
 
 //Middleware cors error

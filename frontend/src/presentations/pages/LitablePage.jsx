@@ -56,12 +56,13 @@ const LitablePage = () => {
 
     const deleteLitableImpl = ({ _id, imageUrl }, index) => {
         //Delete a litable
-        deleteImg(imageUrl[0]).then((_) => {
-            return deleteLitable(_id)
-        }).then((_) => {
+        deleteImg(imageUrl[0]).then(async (_) => {
+            //When until deletion completed
+            await deleteLitable(_id)
+
+            //Get items for update data
             return displayLitable()
-        }).then((data) => {
-            console.log(data)
+        }).then(({data}) => {
             //Add pagination
             let item = data["metadata"]["numberPages"]
             let active = data["metadata"]["currentPage"] //Indicate current page displayed
