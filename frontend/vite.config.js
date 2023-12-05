@@ -7,5 +7,9 @@ export default defineConfig({
   server:{
     host: true,
     port: 5127
+  },
+  test:{
+    global: true,
+    setupFiles: ['./src/setupTests.jsx'],
   }
 })
