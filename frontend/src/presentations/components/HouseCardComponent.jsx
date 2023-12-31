@@ -1,4 +1,4 @@
-import styles from "./css/modules/HouseCard.module.css"
+import styles from "../styles/components/HouseCard.module.css"
 import { useEffect, useState } from "react"
 import { deleteImg, downloadImgFromUrl } from "../../data/storage"
 import Button from "react-bootstrap/Button"

@@ -1,6 +1,6 @@
 import { Component, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import styles from './css/modules/Form.module.css';
+import styles from '../styles/components/Form.module.css';
 import image from '../../assets/file.svg'
 import { postRent, updateLitable } from "../../data/litableData"
 import { Navigate } from "react-router-dom";

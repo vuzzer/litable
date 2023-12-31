@@ -1,2 +1,2 @@
-import "@testing-library/jest-dom"
+export * from "vitest"
 export * from "@testing-library/react"

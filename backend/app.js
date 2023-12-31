@@ -19,11 +19,11 @@ const litableRoute = require("./routes/litableRoutes");
 //Middlewares
 app.use(bodyParser.json())
 
-//Logging
+// Logging
 app.use(logger("dev", {stream: accessLogStream}))
 
 
-//Middleware cors error
+//Middleware for cors error
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(
