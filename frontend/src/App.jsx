@@ -8,7 +8,8 @@ import UpdateLitablePage from './presentations/pages/UpdateLitablePage';
 
 //Global stylesheet apply to all page or components
 import "./presentations/styles/pages/Common.css"
-import { home, newLitable, updateOneLitable } from './core/route';
+import { home, newLitable, register, updateOneLitable } from './core/route';
+import { RegisterPage } from './presentations/pages/RegisterPage';
 
 
 
@@ -20,6 +21,7 @@ function App() {
           <Route exact path={home} element={ <LitablePage/>} />
           <Route exact path={newLitable} element={<AddLitablePage/>} />
           <Route exact path={updateOneLitable} element={<UpdateLitablePage/>} />
+          <Route exact path={register} element={<RegisterPage/>} />
         </Routes>
     </>
   )
