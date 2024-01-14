@@ -1,0 +1,33 @@
+[
+{
+    "metadata": {
+        "currentPage": 1,
+        "itemsPerPage": 3,
+        "numberPages": 1
+    },
+    "data": [
+        {
+            "_id": "6568bf4b10de7f49a0d92cb7",
+            "city": "Quebec",
+            "street": "Quebec",
+            "rent": 120,
+            "createAt": "2023-11-30T16:57:29.074Z",
+            "imageUrl": [
+                "images/1701363528588-h5.jpeg"
+            ],
+            "__v": 0
+        },
+        {
+            "_id": "6568bd0641b925ce0a47c676",
+            "city": "Quebec",
+            "street": "Quebec",
+            "rent": 1100,
+            "createAt": "2023-11-30T16:35:12.685Z",
+            "imageUrl": [
+                "images/1701362949590-h4.jpg"
+            ],
+            "__v": 0
+        }
+    ]
+}
+]

@@ -34,7 +34,7 @@ exports.displayLitable = (req, res, next) => {
 
 
     Litable.countDocuments().then((counts)=>{
-        //Calculate number pages
+        //Calculatenumber pages
         let quotient = parseInt(counts/itemsPerPage)
         let rest = counts % itemsPerPage === 0 ? 0 : 1
         numberPages = quotient + rest
@@ -66,7 +66,7 @@ exports.updateLitable = (req, res, next) => {
     const update = {city: city, street: street, rent:rent, fullpath: fullpath }
 
 
-    // update litable and return data
+    // update litable and return data updated for true parameter
     Litable.findOneAndUpdate(filter, update, {new: true}).then((litable) => {
         res.sendStatus(204);
     }).catch((e) => {

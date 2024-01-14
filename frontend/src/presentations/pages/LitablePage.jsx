@@ -1,8 +1,8 @@
 import { useEffect, useState, memo, useCallback } from "react";
 import { deleteLitable, displayLitable } from "../../data/litableData";
 import { HouseCardComponent } from "../components/HouseCardComponent";
-import styles from "./css/modules/LitablePage.module.css"
-import ErrorBoundary from "./ErrorBoundary";
+import styles from "../styles/pages/LitablePage.module.css"
+import ErrorBoundary from "../errors/ErrorBoundary";
 import Pagination from "react-bootstrap/Pagination"
 import { PaginationComponent } from "../components/PaginationComponent";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,71 +11,72 @@ import { deleteImg } from "../../data/storage"
 
 
 const LitablePage = () => {
-    const litable = useSelector((state) => state.value)
-    const dispatch = useDispatch()
 
     const [houses, setHouses] = useState([]);
     const [isLoaded, setLoaded] = useState(false)
-    const [pagination, setPagination] = useState([]); //contains pagination
+    const [indexPaginations, setIndexPaginations] = useState([]); //contains pagination
 
-    //useEffect is called at mounting and updating
+    //useEffect is called at mounting stage
     useEffect(() => {
         //Get house data
-        displayLitable().then(({ data }) => {
-            //Add pagination
-            let item = data["metadata"]["numberPages"]
-            let active = data["metadata"]["currentPage"] //Indicate current page displayed
+        displayLitable().then((litables) => {
+            if (litables) {
+                const { data, metadata } = litables
+                const { numberPages, currentPage } = metadata
+                //Build items pagination
+                renderPaginationItem(numberPages, currentPage)
 
-            //Build items pagination
-            renderPaginationItem(item, active)
-
-            if (isLoaded === false) {
-                setHouses(data["data"])
-                setLoaded(true)
+                if (isLoaded === false) {
+                    setHouses(data)
+                    setLoaded(true)
+                }
             }
         })
-            .catch(e => e)
     }, [])
 
 
-    //R-render interface when houses is modified
+    // Update pagination when houses is deleted
     useEffect(() => {
-        //Get house data
-        displayLitable().then(({ data }) => {
-            //Add pagination
-            let item = data["metadata"]["numberPages"]
-            let active = data["metadata"]["currentPage"] //Indicate current page displayed
+        displayLitable().then((litables) => {
+            if (litables) {
+                const { metadata } = litables
+                const { numberPages, currentPage } = metadata
 
-            //Build items pagination
-            renderPaginationItem(item, active)
+                //Build items pagination
+                renderPaginationItem(numberPages, currentPage)
+            }
 
-            //Update litable data
-            setHouses(data["data"])
         })
-            .catch(e => e)
     }, [houses])
 
 
+
+
+
     const deleteLitableImpl = ({ _id, imageUrl }, index) => {
-        //Disable delete button during loading
-
         //Delete a litable
-        deleteImg(imageUrl[0]).then((_) => {
-            return deleteLitable(_id)
-        }).then((_) => {
-            setHouses(prevState => {
-                //Delete litable
-                prevState.slice(index, 1)
+        deleteImg(imageUrl[0]).then(async (_) => {
+            //When until deletion completed
+            await deleteLitable(_id)
 
-                return prevState
-            })
+            //Get items for update data
+            return displayLitable()
+        }).then((litables) => {
+            //Add pagination
+            const { data, metadata } = litables
+            const { numberPages, currentPage } = metadata //Indicate current page displayed
+
+            //Build items pagination
+            renderPaginationItem(numberPages, currentPage)
+
+            setHouses(data)
         })
             .catch(e => {
                 console.log(e)
             })
     }
 
-    const paginateData = useCallback((page) => {
+    const paginateData = (page) => {
         displayLitable(page).then(({ data }) => {
             //Add pagination
             let numberPages = data["metadata"]["numberPages"]
@@ -86,13 +87,13 @@ const LitablePage = () => {
             setHouses(data["data"])
         })
             .catch(e => console.log(e))
-    },)
+    }
 
-    const renderPaginationItem = (item, active) => {
-        setPagination(prevState => {
+    const renderPaginationItem = (item, currentPage) => {
+        setIndexPaginations(prevState => {
             let items = []
             for (let i = 1; i < item + 1; i++) {
-                if (i === active) {
+                if (i === currentPage) {
                     items.push(
                         <Pagination.Item active onClick={() => paginateData(i)}>{i}</Pagination.Item>
                     )
@@ -102,14 +103,14 @@ const LitablePage = () => {
                     )
                 }
             }
-            return items;
+            prevState = items
+            return prevState;
         })
 
     }
 
     return (
         <div className="container">
-            <h1>Product Page</h1>
             {isLoaded ?
                 (
                     <div className={styles.displayContainer} >
@@ -119,7 +120,7 @@ const LitablePage = () => {
                 : "donnée en cours de chargement"}
 
             {isLoaded && (
-                <PaginationComponent pagination={pagination} />
+                <PaginationComponent pagination={indexPaginations} />
             )}
             {/*   <button onClick={() => dispatch(incrementer())}>Incrementer</button>
                 <div>

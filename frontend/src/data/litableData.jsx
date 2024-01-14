@@ -14,11 +14,16 @@ export const postRent = (data) => {
 }
 
 
-export const displayLitable = (page = 1) => {
-    return axios({
-        method: 'GET',
-        url: URL + `/litable/display?page=${page}`,
-    });
+export const displayLitable = async (page = 1) => {
+    try {
+        const { data } = await axios({
+            method: 'GET',
+            url: URL + `/litable/display?page=${page}`,
+        })
+        return data
+    } catch (e) {
+        return null
+    }
 }   
 
 

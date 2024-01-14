@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import styled from "styled-components"
-import styles from './css/modules/Header.module.css'
-import { login, newLitable, register } from "../../route"
+import styles from '../styles/components/Header.module.css'
+import { login, newLitable, register } from "../../core/route"
 
 const Nav = styled.nav `
     position: fixed;

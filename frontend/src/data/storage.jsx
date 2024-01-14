@@ -6,7 +6,7 @@ const storage = getStorage(app);
 
 
 
-export const uploadFileToFireBase = (file) =>{
+export const uploadFileToFireBase = (file) => {
     //Get a storage reference from storage service now points to `image`
     const storeRef = ref(storage, `images/${Date.now()}-${file.name}`)
     //upload file from File
@@ -21,10 +21,16 @@ export const downloadImgFromUrl = (path) => {
     return getDownloadURL(storeRef);
 }
 
-export const deleteImg = (path) =>{
+export const updateImg = (path, file) => {
+    //Get a storage reference from storage service now points to `image`
+    const storeRef = ref(storage, path)
+    //upload file from File
+    return uploadBytesResumable(storeRef, file)
+}
+
+export const deleteImg = (path) => {
     //Get a storage reference
     const storeRef = ref(storage, path)
-
     //Delete image
     return deleteObject(storeRef)
 }

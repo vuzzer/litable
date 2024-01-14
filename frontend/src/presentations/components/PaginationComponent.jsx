@@ -1,12 +1,13 @@
-import { memo } from "react"
+import { memo, useEffect } from "react"
 import Pagination from "react-bootstrap/Pagination"
+import styles from "../styles/components/PaginationComponent.module.css"
 
-export const PaginationComponent = memo(({ pagination }) => {
+export const PaginationComponent = ({ pagination }) => {
     return (
         <>
-            <Pagination>
+            <Pagination className={styles.pagination}>
                {...pagination}
             </Pagination>
         </>
     )
-})
+}
