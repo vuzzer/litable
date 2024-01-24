@@ -1,9 +1,9 @@
 import './App.css'
-import "./src/presentation/styles/pages/common.css"
-import Header from './src/presentation/components/Header'
+import "./presentation/styles/pages/common.css"
+import Header from './presentation/components/Header'
 import { Route, Routes } from 'react-router-dom'
-import { home, newLitable, register, updateOneLitable } from './src/core/route'
-import {LitablePage, AddLitablePage, UpdateLitablePage, RegisterPage} from "./src/presentation/pages/index"
+import { home, newLitable, register, updateOneLitable } from './core/route'
+import {LitablePage, AddLitablePage, UpdateLitablePage, RegisterPage} from "./presentation/pages/index"
 
 
 function App() {

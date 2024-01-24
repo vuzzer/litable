@@ -1,6 +1,7 @@
 import { GoogleAuthProvider, getRedirectResult, signInWithRedirect, FacebookAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from "../core/firebaseConfig"
+import { auth } from "../../core/firebaseConfig"
 import { registerClientData } from "./clientData";
+import firebase from "firebase/compat/app";
 
 // Use language of browser
 auth.useDeviceLanguage()
@@ -22,6 +23,9 @@ export const registerWithFacebookAccount = async () => {
 
     // Add Scope 
     provider.addScope('user_birthday');
+
+    // Don't persist state client side
+    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
 
     // Log in an Google Account
     signInUserWithProvider(provider);

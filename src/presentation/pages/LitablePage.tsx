@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { deleteLitable, displayLitable } from "../../data/serverData";
+import { deleteLitable, displayLitable } from "../../data/datasources/litableData";
 import { HouseCard } from "../components/HouseCard";
 import styles from "../styles/pages/litablePage.module.css"
 import ErrorBoundary from "../errors/ErrorBoundary";
 import Pagination from "react-bootstrap/Pagination"
 import { CustomPagination } from "../components/Pagination";
-import { deleteImg } from "../../data/firebaseStorage"
+import { deleteImg } from "../../data/datasources/firebaseStorage"
 import { Litable, RawData } from "../../core/interfaces/litable";
 
 

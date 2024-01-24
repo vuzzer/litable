@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import styled from "styled-components"
 import styles from '../styles/components/header.module.css'
 import { home, login, newLitable, register } from "../../core/route"
-import { logout } from "../../data/firebaseAuth"
+import { logout } from "../../data/datasources/firebaseAuth"
 
 const Nav = styled.nav `
     position: fixed;

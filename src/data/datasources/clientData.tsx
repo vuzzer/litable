@@ -1,5 +1,5 @@
 import axios from "axios"
-import {serverAddress} from "../core/serverConfig"
+import {serverAddress} from "../../core/serverConfig"
 
 
 export const registerClientData = (data:Object) => {

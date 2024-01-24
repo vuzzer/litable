@@ -1,7 +1,7 @@
 "use strict";
 
 import { useParams,  } from "react-router";
-import { getLitableById } from "../../data/serverData";
+import { getLitableById } from "../../data/datasources/litableData";
 import { useEffect, useState } from "react";
 import UpdateForm from "../components/UpdateForm";
 import { Litable } from "../../core/interfaces/litable";

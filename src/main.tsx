@@ -6,7 +6,7 @@ import "bootstrap/dist/js/bootstrap.bundle.js"
 import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import {store} from "./src/apps/hooks/store.tsx"
+import {store} from "./apps/hooks/store.tsx"
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <StrictMode>

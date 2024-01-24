@@ -1,4 +1,4 @@
-import {  registerWithFacebookAccount, registerWithGoogleAccount } from "../../data/firebaseAuth"
+import {  registerWithFacebookAccount, registerWithGoogleAccount } from "../../data/datasources/firebaseAuth"
 import styled from "../styles/pages/register.module.css"
 import {  useAppSelector } from "../../apps/hooks/hook";
 import { auth } from "../../core/firebaseConfig";
@@ -20,6 +20,7 @@ export const RegisterPage = () => {
         if(loading){
             return;
         }
+        console.log(user);
         if(user) navigator(home)
     }, [user, loading])
 

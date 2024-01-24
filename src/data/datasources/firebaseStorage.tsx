@@ -1,4 +1,4 @@
-import { app } from "../core/firebaseConfig";
+import { app } from "../../core/firebaseConfig";
 import { getStorage, ref, getDownloadURL, uploadBytesResumable, deleteObject } from "firebase/storage";
 
 // Get referencet to cloud storage

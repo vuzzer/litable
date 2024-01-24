@@ -1,6 +1,6 @@
 import styles from "../styles/components/houseCard.module.css"
 import { useEffect, useState } from "react"
-import { downloadImgFromUrl } from "../../data/firebaseStorage"
+import { downloadImgFromUrl } from "../../data/datasources/firebaseStorage"
 import Button from "react-bootstrap/Button"
 import { Navigate } from "react-router-dom"
 import { Litable } from "../../core/interfaces/litable"

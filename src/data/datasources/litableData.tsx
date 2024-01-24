@@ -1,6 +1,6 @@
 import axios from "axios"
-import {serverAddress} from "../core/serverConfig"
-import { IFormInputsLitable } from "../core/interfaces/formInputsLitable"
+import {serverAddress} from "../../core/serverConfig"
+import { IFormInputsLitable } from "../../core/interfaces/formInputsLitable"
 
 
 export const postRent = (data:object) => {

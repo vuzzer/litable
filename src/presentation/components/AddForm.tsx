@@ -1,10 +1,10 @@
 import {  useState } from "react";
 import styled from "styled-components";
 import styles from '../styles/components/addForm.module.css';
-import image from '../../../assets/file.svg'
-import { postRent } from "../../data/serverData"
+import image from '../../assets/file.svg'
+import { postRent } from "../../data/datasources/litableData"
 import { Navigate } from "react-router-dom";
-import { uploadFileToFireBase } from "../../data/firebaseStorage";
+import { uploadFileToFireBase } from "../../data/datasources/firebaseStorage";
 import { Control,  useWatch, useForm } from "react-hook-form"
 import {Spinner, Button} from 'react-bootstrap'
 import { CustomModal } from "./Modal";

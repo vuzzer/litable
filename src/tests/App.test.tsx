@@ -2,8 +2,8 @@ import {describe, it, expect} from "vitest"
 import {screen, render} from "@testing-library/react"
 import App from "../App"
 import { BrowserRouter, MemoryRouter } from "react-router-dom"
-import { newLitable } from "../src/core/route"
-import LitablePage from "../src/presentation/pages/LitablePage"
+import { newLitable } from "../core/route"
+import LitablePage from "../presentation/pages/LitablePage"
 
 
 describe("App page routing with no response API", ()=>{
