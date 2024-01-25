@@ -7,6 +7,11 @@ import Pagination from "react-bootstrap/Pagination"
 import { CustomPagination } from "../components/Pagination";
 import { deleteImg } from "../../data/datasources/firebaseStorage"
 import { Litable, RawData } from "../../core/interfaces/litable";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../core/firebaseConfig";
+import { Navigate, useNavigate } from "react-router-dom";
+import { register } from "../../core/route";
+
 
 
 const LitablePage = () => {
@@ -14,10 +19,14 @@ const LitablePage = () => {
     const [houses, setHouses] = useState<Litable[]>([]);
     const [isLoaded, setLoaded] = useState(false)
     const [indexPaginations, setIndexPaginations] = useState<JSX.Element[]>([]); //contains pagination
+    const [user] = useAuthState(auth);
+    const navigate = useNavigate()
 
     //useEffect is called at mounting stage
     useEffect(() => {
-        //Get house data
+        // Not authentificate, redirect to login
+        if(user) {
+                    //Get house data
         displayLitable().then((litables:RawData) => {
             if (litables) {
                 const { data, metadata } = litables
@@ -31,6 +40,8 @@ const LitablePage = () => {
                 }
             }
         })
+        }
+
     }, [])
 
 
@@ -109,7 +120,8 @@ const LitablePage = () => {
     }
 
     return (
-        <div className="container">
+        user ?
+        (<div className="container">
             {isLoaded ?
                 (
                     <div className={styles.displayContainer} >
@@ -125,7 +137,7 @@ const LitablePage = () => {
                 <div>
                     {litable}
                 </div> */}
-        </div>
+        </div>) : (<Navigate to={register} />)
 
     )
 }
